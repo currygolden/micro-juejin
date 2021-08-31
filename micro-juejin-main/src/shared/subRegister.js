@@ -46,12 +46,14 @@ export default function subRegister(vm) {
    * 便会自动触发qiankun的匹配逻辑
    * 所有activeRule规则匹配上的微应用就会被插入到主应用指定的container中
    * 同时以此调用微应用暴露出的生命周期钩子函数
-   *
+   * 子系统的切换不会刷新页面，但是还是需要加载资源存在loading 场景
    * */
   const loader = loading => {
     console.log("LOADER %c%s", "color:yellow", loading);
     vm.$store.commit('loadingToggle',loading)
   };
+
+  // 批量注册微应用
   registerMicroApps(
     apps.map(app => {
       return { ...app, loader };
@@ -114,6 +116,7 @@ export const state = {
   isLoadingMicro: false
 };
 
+// 应用通信，全局状态
 export const actions = initGlobalState(state);
 
 /*暴露三个全局通信方法给主应用的子组件*/

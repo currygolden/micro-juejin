@@ -16,6 +16,10 @@ Vue.config.productionTip = false;
 let router = null;
 let instance = null;
 
+/**
+ * 自定义render 方法，主要是处理router 和 组件实例
+ * router 子应用需要有公共base路径用于基座项目的路由匹配，这里会重写router
+ */
 function VueRender(props = {}) {
   const { container } = props;
   router = new VueRouter({
@@ -65,8 +69,7 @@ export async function mount(props) {
   setGlobalState = props.setGlobalState;
 
   console.log("[vue] props from main framework", props);
-  VueRender(props);
-
+  VueRender(props)
 }
 
 export async function unmount() {

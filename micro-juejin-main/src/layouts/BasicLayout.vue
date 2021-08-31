@@ -1,6 +1,6 @@
 <template>
   <a-layout class="BasicLayout_container">
-
+    <!-- 头部导航 -->
     <transition name="head_fade">
       <a-layout-header class="BasicLayout_header" v-show="showHeader">
         <div class="BasicLayout_header_container">
@@ -64,7 +64,7 @@
       </a-layout-header>
     </transition>
 
-
+    <!-- 子应用的导航条 -->
     <transition name="ease_fade">
       <NavBar
         v-if="showNavBar"
@@ -73,6 +73,7 @@
       ></NavBar>
     </transition>
 
+    <!-- 内容区 -->
     <a-layout-content
       class="BasicLayout_content"
       ref="BasicLayout_content"
@@ -83,6 +84,7 @@
       <transition name="subApp_fade">
         <div id="subApp" ref="subApp" v-show="!switchingApp">
           <!--          Micro App-->
+          <!-- 接管的是整个子应用的路由 -->
           <router-view />
         </div>
       </transition>
@@ -135,6 +137,7 @@ export default {
         ? this.ruleMap.get(this.activeRule)
         : apps[0].$meta.title;
     },
+    // 区分移动端和 pc端，但是ui框架还是会有很多不适配
     isCollapsed() {
       return this.screenWidth < 960;
     },
@@ -156,6 +159,7 @@ export default {
     }
   },
   methods: {
+    // 实际是切换子应用
     handleRouterLink(activeRule) {
       if (this.activeRule === activeRule) {
         return;
@@ -165,9 +169,7 @@ export default {
       setTimeout(async () => {
         await this.$router.push(activeRule);
         this.switchingApp = false;
-      }, 500);
-      // setTimeout(() => {
-      // }, 500);
+      }, 500)
     },
     handleScroll(e) {
       const { clientHeight, scrollHeight, scrollTop } = e.target;
@@ -191,6 +193,7 @@ export default {
     $route(newVal) {
       this.activeRule = "/" + newVal.path.split("/")[1];
     },
+    // watch 频繁触发的回调需要控制
     scrollTop: debounce(
       function(newVal, oldVal) {
         this.showHeader = newVal - oldVal <= 0;
@@ -203,6 +206,7 @@ export default {
     )
   },
   mounted() {
+    // 优化频率高的事件
     window.onresize = throttle(
       () => {
         this.screenWidth = document.body.clientWidth;

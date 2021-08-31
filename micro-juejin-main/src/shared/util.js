@@ -1,5 +1,6 @@
 /**
  * Check if value is primitive.
+ * 原始类型 ｜ 引用类型
  */
 export function isPrimitive(value) {
   return (
@@ -54,8 +55,10 @@ export function hasOwn(obj, key) {
 export function isUndef(v) {
   return v === undefined || v === null;
 }
-
-/*shuffle*/
+/**
+ * 随机打乱数组
+ * shuffle
+ */
 export function shuffle(arr) {
   console.time("copy");
   // let rtn = JSON.parse(JSON.stringify(arr));  // 深拷贝性能更差

@@ -66,6 +66,15 @@ const apps = [
     }
   },
   {
+    name: "micro-mercury",
+    entry: `//${prdHost || "localhost"}:8001`,
+    container: "#subApp",
+    activeRule: "/micro-juejin-mercury",
+    $meta: {
+      title: "水星"
+    }
+  },
+  {
     name: "micro-juejin-tryVite",
     entry: `//${prdHost || "localhost"}:8076`,
     container: "#subApp",

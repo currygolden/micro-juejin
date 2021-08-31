@@ -85,6 +85,7 @@ export default {
     }
   },
   methods: {
+    // 子应用共享状态
     handleSelect(tag) {
       this.activeTag = tag;
       const tempState = {

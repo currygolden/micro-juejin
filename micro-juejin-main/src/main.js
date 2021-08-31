@@ -17,6 +17,7 @@ import subRegister from "./shared/subRegister";
 
 Vue.config.productionTip = false;
 
+// mount() 才可以拿到 vm
 const vm = new Vue({
   router,
   store,
